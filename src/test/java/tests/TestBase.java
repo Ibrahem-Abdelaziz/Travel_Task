@@ -41,7 +41,7 @@ public class TestBase {
         }
         driver.manage().window().maximize();
         driver.get("https://ksrtc.in/");
-        driver.manage().window().setSize(new Dimension(1024,768));
+//        driver.manage().window().setSize(new Dimension(1024,768));
 
     }
 

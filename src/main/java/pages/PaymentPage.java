@@ -18,63 +18,48 @@ public class PaymentPage extends PageBase {
     }
 
     private final By easebuzzOption = By.xpath("(//div[@class='pg--text'])[1]");
-    private final By razorpayOption = By.xpath("(//div[@class='pg--text'])[2]");
-    private final By proceedToPayButton = By.xpath("//div[normalize-space()='PROCEED TO PAY']");
+     private final By proceedToPayButton = By.xpath("//div[normalize-space()='PROCEED TO PAY']");
 
     private final By agreePopupButton = By.xpath("(//div[normalize-space()='AGREE'])[1]");
 
 
 
-    private void safeClick(By locator) {
-        int retries = 3;
-        while (retries > 0) {
-            try {
-                WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-                return;
-            } catch (StaleElementReferenceException e) {
-                System.out.println("⚠️ Stale element detected, retrying click... (" + (4 - retries) + ")");
-                retries--;
-            } catch (TimeoutException e) {
-                throw new RuntimeException("❌ Timeout waiting for element: " + locator);
-            }
-        }
-        throw new RuntimeException("❌ Failed to click after retries: " + locator);
+    public void selectPayment() {
+
+
+        WebElement paymentOption = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(easebuzzOption)
+        );
+        wait.until(ExpectedConditions.elementToBeClickable(paymentOption));
+
+        PageBase.scrollToElement(driver, paymentOption);
+        PageBase.clickWithJS(driver, paymentOption);
     }
 
-    // ==============================
-    // 🔸 Page Actions
-    // ==============================
-
-    /** Select the Easebuzz payment option */
-    public void selectEasebuzzPayment() {
-        safeClick(easebuzzOption);
-        System.out.println("✅ Selected Easebuzz payment option.");
-    }
-
-    /** Select the Razorpay payment option */
-    public void selectRazorpayPayment() {
-        safeClick(razorpayOption);
-        System.out.println("✅ Selected Razorpay payment option.");
-    }
-
-    /** Proceed to pay and handle the AGREE popup if it appears */
     public void clickProceedToPay() {
-        safeClick(proceedToPayButton);
-        System.out.println("✅ Clicked 'PROCEED TO PAY'.");
-        try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
+
+
+        WebElement proceedButton = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(proceedToPayButton)
+        );
+        wait.until(ExpectedConditions.elementToBeClickable(proceedButton));
+
+        PageBase.scrollToElement(driver, proceedButton);
+        PageBase.clickWithJS(driver, proceedButton);
     }
+
     public void clickAgree() {
-        try {
-            WebElement agreeButton = wait.until(ExpectedConditions.visibilityOfElementLocated(agreePopupButton));
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", agreeButton);
-            System.out.println("✅ Clicked 'AGREE' popup.");
-            try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
-        } catch (TimeoutException ignored) {
-            System.out.println("ℹ️ No 'AGREE' popup appeared.");
-        }
+
+
+        WebElement agreeButton = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(agreePopupButton)
+        );
+        wait.until(ExpectedConditions.elementToBeClickable(agreeButton));
+
+        PageBase.scrollToElement(driver, agreeButton);
+        PageBase.clickWithJS(driver, agreeButton);
     }
+
 }
 
 

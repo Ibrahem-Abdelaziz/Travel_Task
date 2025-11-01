@@ -1,0 +1,20 @@
+{
+  "searching": {
+    "fromCity": "Chikkamagaluru",
+    "toCity": "Bengaluru" ,
+    "date" : "12"
+  },
+  "seatSelection": {
+    "seatNumber": "13"
+
+  },
+  "CustomerDetails": {
+    "phoneNumber": "6789125987" ,
+    "email" : "Ibrahem@asd.com"
+  },
+  "PassengerInfo": {
+    "fnName": "Ibrahem" ,
+    "gender": "Male" ,
+    "age": "27"
+  }
+}
